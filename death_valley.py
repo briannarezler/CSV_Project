@@ -1,12 +1,10 @@
-# change file to include all of 2018
-# chagne title to daily and low and high temperatures
-# extract low temps and add them
-# shade areas between highs and lows
+# handle errors using try and except
+# change file to use death valley data
 
 import csv
 from datetime import datetime
 
-open_file = open("sitka_weather_2018_simple.csv", "r")
+open_file = open("death_valley_2018_simple.csv", "r")
 
 csv_file = csv.reader(open_file, delimiter=",")
 
@@ -28,10 +26,16 @@ dates = []
 # print(converted_date)
 
 for row in csv_file:
-    highs.append(int(row[5]))
-    lows.append(int(row[6]))
-    converted_date = datetime.strptime(row[2], "%Y-%m-%d")
-    dates.append(converted_date)
+    try:
+        high = int(row[4])
+        low = int(row[5])
+        converted_date = datetime.strptime(row[2], "%Y-%m-%d")
+    except ValueError:
+        print(f"missing data for {converted_date}")
+    else:
+        highs.append(high)
+        lows.append(low)
+        dates.append(converted_date)
 
 # print(highs)
 
@@ -52,12 +56,5 @@ plt.ylabel("Temperature (F)", fontsize=12)
 plt.tick_params(axis="both", labelsize=12)
 
 plt.fill_between(dates, highs, lows, facecolor="blue", alpha=0.1)
-
-plt.show()
-
-fig2, a = plt.subplots(2)
-
-a[0].plot(dates, highs, c="red")
-a[1].plot(dates, lows, c="blue")
 
 plt.show()
