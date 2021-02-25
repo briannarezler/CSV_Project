@@ -8,6 +8,7 @@
 import csv
 from datetime import datetime
 
+# setting up automatic indexing for sitka file
 open_sk_file = "sitka_weather_2018_simple.csv"
 
 sk_place_name = ""
@@ -38,6 +39,7 @@ with open(open_sk_file) as c:
             sk_lows.append(int(row[low_pos]))
             sk_dates.append(converted_date)
 
+# setting up automatic indexing for death valley file
 open_dv_file = "death_valley_2018_simple.csv"
 dv_place_name = ""
 with open(open_dv_file) as c:
@@ -67,6 +69,8 @@ with open(open_dv_file) as c:
             dv_lows.append(int(row[low_pos]))
             dv_dates.append(converted_date)
 
+
+# creating plot design
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(2)
